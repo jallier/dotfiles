@@ -14,10 +14,12 @@ Plugin 'easymotion/vim-easymotion'
 Bundle "myusuf3/numbers.vim"
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
-
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'auto-pairs-gentle'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 set autoindent
+au BufReadPost *.ijm set syntax=javascript
