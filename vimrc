@@ -16,6 +16,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'auto-pairs-gentle'
+Bundle 'gabrielelana/vim-markdown'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
