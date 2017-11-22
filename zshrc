@@ -85,7 +85,16 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+###############
+# MISC CONFIG #
+###############
+
+path+=('/home/justin/Scripts')
+
+################
+# THEME CONFIG #
+################
 BULLETTRAIN_PROMPT_ORDER=(
   status
   dir
