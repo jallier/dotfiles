@@ -86,6 +86,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+###########
+# ALIASES #
+###########
+
+alias gs="git stash push"
+
 ###############
 # MISC CONFIG #
 ###############
