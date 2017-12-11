@@ -91,6 +91,7 @@ source $ZSH/oh-my-zsh.sh
 ###########
 
 alias gs="git stash push"
+alias egrep="egrep --color"
 
 ###############
 # MISC CONFIG #
