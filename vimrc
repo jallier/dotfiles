@@ -19,7 +19,7 @@ Plugin 'auto-pairs-gentle'
 Bundle 'gabrielelana/vim-markdown'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'freitass/todo.txt-vim'
+Plugin 'dbeniamine/todo.txt-vim'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
