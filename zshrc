@@ -98,6 +98,7 @@ alias egrep="egrep --color"
 ###############
 
 path+=('/home/justin/Scripts')
+unsetopt share_history # Don't share history between terminals
 
 ################
 # THEME CONFIG #
