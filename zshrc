@@ -90,7 +90,10 @@ source $ZSH/oh-my-zsh.sh
 # ALIASES #
 ###########
 
+# --Git
 alias gs="git stash push"
+alias gai="git add -i"
+# --Grep
 alias egrep="egrep --color"
 
 ###############
