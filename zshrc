@@ -92,6 +92,7 @@ source $ZSH/oh-my-zsh.sh
 
 # --Git
 alias gs="git stash push"
+alias gsp="git stash pop"
 alias gai="git add -i"
 # --Grep
 alias egrep="egrep --color"
