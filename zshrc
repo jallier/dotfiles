@@ -96,6 +96,8 @@ alias gsp="git stash pop"
 alias gai="git add -i"
 # --Grep
 alias egrep="egrep --color"
+# --Clipboard
+alias clip="xclip -selection clipboard"
 
 ###############
 # MISC CONFIG #
