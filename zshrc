@@ -94,6 +94,8 @@ source $ZSH/oh-my-zsh.sh
 alias gs="git stash push"
 alias gsp="git stash pop"
 alias gai="git add -i"
+alias gfd="git log --stat --grep"
+alias gfdp="git log --stat -p --grep"
 # --Grep
 alias egrep="egrep --color"
 # --Clipboard
