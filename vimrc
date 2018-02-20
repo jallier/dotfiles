@@ -28,9 +28,13 @@ filetype plugin indent on    " required
 set autoindent
 au BufReadPost *.ijm set syntax=javascript
 
+" Map moving between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Map launching markdown in a browser. 
+nnoremap <F5> :w !pandoc --css ~/dotfiles/bg.css --self-contained \| bcat<CR>
 
 set linebreak
