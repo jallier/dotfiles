@@ -20,6 +20,7 @@ Bundle 'gabrielelana/vim-markdown'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'dbeniamine/todo.txt-vim'
+Plugin 'mileszs/ack.vim'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -36,5 +37,8 @@ nnoremap <C-H> <C-W><C-H>
 
 " Map launching markdown in a browser. 
 nnoremap <F5> :w !pandoc --css ~/dotfiles/bg.css --self-contained \| bcat<CR>
+
+" Setup ag
+let g:ackprg = 'ag --vimgrep'
 
 set linebreak
