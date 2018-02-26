@@ -42,4 +42,7 @@ nnoremap <F5> :w !pandoc --css ~/dotfiles/bg.css --self-contained \| bcat<CR>
 " Setup ag
 let g:ackprg = 'ag --vimgrep'
 
+" Set tabs to be 4 spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
 set linebreak
