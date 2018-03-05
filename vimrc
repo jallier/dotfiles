@@ -22,6 +22,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'dbeniamine/todo.txt-vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'stanangeloff/php.vim'
+Plugin 'shawncplus/phpcomplete.vim'
+Bundle 'bash-support.vim'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
