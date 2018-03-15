@@ -42,6 +42,9 @@ nnoremap <C-H> <C-W><C-H>
 " Map launching markdown in a browser. 
 nnoremap <F5> :w !pandoc --css ~/dotfiles/bg.css --self-contained \| bcat<CR>
 
+" Map running current program
+nnoremap <F9> :!%:p<Enter>
+
 " Setup ag
 let g:ackprg = 'ag --vimgrep'
 
