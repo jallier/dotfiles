@@ -25,6 +25,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'stanangeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 Bundle 'bash-support.vim'
+Plugin 'hdima/python-syntax'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required

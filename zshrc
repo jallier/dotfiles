@@ -100,6 +100,8 @@ alias gfdp="git log --stat -p --grep"
 alias egrep="egrep --color"
 # --Clipboard
 alias clip="xclip -selection clipboard"
+# --Pretty print json
+alias prettyjson="python -m json.tool"
 
 ###############
 # MISC CONFIG #
