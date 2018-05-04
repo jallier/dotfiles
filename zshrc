@@ -129,6 +129,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
   status
   background_jobs
   load
+  command_execution_time
 )
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
