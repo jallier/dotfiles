@@ -26,6 +26,7 @@ Plugin 'stanangeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 Bundle 'bash-support.vim'
 Plugin 'hdima/python-syntax'
+Plugin 'ludovicchabant/vim-gutentags'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -51,5 +52,8 @@ let g:ackprg = 'ag --vimgrep'
 
 " Set tabs to be 4 spaces
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+" Set the leader to be spacebar
+:let mapleader = "\<Space>"
 
 set linebreak
