@@ -120,6 +120,7 @@ BULLETTRAIN_PROMPT_ORDER=(
 )
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+  context
   root_indicator
   dir
   dir_writable
