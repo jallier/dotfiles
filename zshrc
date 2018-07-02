@@ -109,6 +109,9 @@ alias prettyjson="python -m json.tool"
 
 path+=('/home/justin/Scripts')
 unsetopt share_history # Don't share history between terminals
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 ################
 # THEME CONFIG #
