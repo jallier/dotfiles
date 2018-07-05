@@ -34,7 +34,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+ COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -86,6 +86,26 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+################
+# THEME CONFIG #
+################
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+  root_indicator
+  dir
+  dir_writable
+  vcs
+)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+  status
+  background_jobs
+  load
+  command_execution_time
+)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+
 ###########
 # ALIASES #
 ###########
@@ -113,27 +133,3 @@ unsetopt share_history # Don't share history between terminals
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
-################
-# THEME CONFIG #
-################
-BULLETTRAIN_PROMPT_ORDER=(
-  status
-  dir
-  git
-)
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-  root_indicator
-  dir
-  dir_writable
-  vcs
-)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-  status
-  background_jobs
-  load
-  command_execution_time
-)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_DELIMITER=""
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
