@@ -34,7 +34,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+ COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -86,38 +86,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-###########
-# ALIASES #
-###########
-
-# --Git
-alias gs="git stash push"
-alias gsp="git stash pop"
-alias gai="git add -i"
-alias gfd="git log --stat --grep"
-alias gfdp="git log --stat -p --grep"
-# --Grep
-alias egrep="egrep --color"
-# --Clipboard
-alias clip="xclip -selection clipboard"
-# --Pretty print json
-alias prettyjson="python -m json.tool"
-
-###############
-# MISC CONFIG #
-###############
-
-path+=('/home/justin/Scripts')
-unsetopt share_history # Don't share history between terminals
-
 ################
 # THEME CONFIG #
 ################
-BULLETTRAIN_PROMPT_ORDER=(
-  status
-  dir
-  git
-)
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
   context
@@ -135,3 +106,114 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+
+###########
+# ALIASES #
+###########
+
+# --Git
+alias gs="git stash push"
+alias gsp="git stash pop"
+alias gai="git add -i"
+alias gfd="git log --stat --grep"
+alias gfdp="git log --stat -p --grep"
+# --Grep
+alias egrep="egrep --color"
+# --Clipboard
+alias clip="xclip -selection clipboard"
+# --Pretty print json
+alias prettyjson="python -m json.tool"
+
+##############
+# FZF CONFIG #
+##############
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+setopt hist_ignore_dups
+
+# Raxed from https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
+is_in_git_repo() {
+    git rev-parse HEAD > /dev/null 2>&1
+
+}
+
+fzf-down() {
+fzf --height 100% "$@" --border
+
+}
+
+fgf() {
+    is_in_git_repo || return
+    git -c color.status=always status --short |
+    fzf-down -m --ansi --nth 2..,.. \
+        --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+    cut -c4- | sed 's/.* -> //'
+
+}
+
+fgb() {
+    is_in_git_repo || return
+    git branch -a --color=always | grep -v '/HEAD\s' | sort |
+    fzf-down --ansi --multi --tac --preview-window right:70% \
+        --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+    sed 's/^..//' | cut -d' ' -f1 |
+    sed 's#^remotes/##'
+
+}
+
+fgt() {
+    is_in_git_repo || return
+    git tag --sort -version:refname |
+    fzf-down --multi --preview-window right:70% \
+        --preview 'git show --color=always {} | head -'$LINES
+
+}
+
+fgl() {
+    is_in_git_repo || return
+    # Add the --graph option to see a pretty ascii graph
+    git log -n 1000 --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --color=always |
+    fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+        --header 'Press CTRL-S to toggle sort' \
+        --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+    grep -o "[a-f0-9]\{7,\}"
+
+}
+
+fgr() {
+    is_in_git_repo || return
+    git remote -v | awk '{print $1 "\t" $2}' | uniq |
+    fzf-down --tac \
+        --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+    cut -d$'\t' -f1
+
+}
+
+join-lines() {
+local item
+while read item; do
+    echo -n "${(q)item} "
+done
+
+}
+
+bind-git-helper() {
+local c
+for c in $@; do
+    eval "fzf-g$c-widget() { local result=\$(fg$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+    eval "zle -N fzf-g$c-widget"
+    eval "bindkey '^g^$c' fzf-g$c-widget"
+done
+
+}
+bind-git-helper f b t r l
+unset -f bind-git-helper
+
+###############
+# MISC CONFIG #
+###############
+
+path+=('/home/justin/Scripts')
+unsetopt share_history # Don't share history between terminals
+
