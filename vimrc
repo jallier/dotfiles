@@ -69,7 +69,7 @@ nnoremap <C-F> :BLines<CR>
 nnoremap <Leader>f :Rg<CR>
 
 " Map launching markdown in a browser. 
-nnoremap <F5> :w !pandoc --css ~/dotfiles/bg.css --self-contained \| bcat<CR>
+nnoremap <F5> :w !pandoc --css ~/dotfiles/bg.css --self-contained -o /tmp/markdownoutput.html && xdg-open /tmp/markdownoutput.html<CR>
 
 " Map running current program
 nnoremap <F9> :!%:p<Enter>
