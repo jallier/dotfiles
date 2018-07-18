@@ -34,7 +34,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
- COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -215,4 +215,6 @@ unset -f bind-git-helper
 
 path+=('/home/justin/Scripts')
 unsetopt share_history # Don't share history between terminals
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
+TERM=xterm-256color
 
