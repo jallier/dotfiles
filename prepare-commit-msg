@@ -1,0 +1,15 @@
+#!/bin/bash
+
+COMMIT_FILE=$1
+COMMIT_MSG=$(cat $1)
+TICKETNO=$(git symbolic-ref -q HEAD --short | sed 's/.*-//')
+
+if [ -z $(head -n1 $1) ]; then # Don't prepend if not a regular commit
+
+    echo "Running prepare-commit-msg. File location: $COMMIT_FILE"
+
+    if [ ! -z "$TICKETNO" ]; then
+        echo "For devs[EZ-$TICKETNO] $COMMIT_MSG" > "$COMMIT_FILE"
+        echo "Prepending content to message"
+    fi
+fi
