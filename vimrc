@@ -36,11 +36,15 @@ filetype plugin indent on    " required
 set autoindent
 au BufReadPost *.ijm set syntax=javascript
 
-" Setup ag
-let g:ackprg = 'ag --vimgrep'
-
 " Set tabs to be 4 spaces
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+" Turn on mouse support
+set mouse=a
+
+" Set smartcase
+set ignorecase
+set smartcase
 
 " Set the leader to be spacebar
 :let mapleader = "\<Space>"
