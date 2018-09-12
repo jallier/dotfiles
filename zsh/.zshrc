@@ -217,4 +217,5 @@ path+=('/home/justin/Scripts')
 unsetopt share_history # Don't share history between terminals
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 TERM=xterm-256color
+setopt HIST_IGNORE_ALL_DUPS # Prevent duplicate history entries
 

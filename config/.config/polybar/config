@@ -66,7 +66,7 @@ modules-right = backlight volume spotify wlan eth memory2 load battery powermenu
 
 tray-position = right
 tray-padding = 2
-tray-transparent = true
+tray-transparent = false 
 tray-background = #0063ff
 
 ;wm-restack = bspwm
@@ -195,7 +195,7 @@ type = custom/script
 interval = 1
 format-prefix = "  "
 format = <label>
-exec = python ~/.config/polybar/spotify_status.py
+exec = python3 ~/.config/polybar/spotify_status.py
 format-underline = #1db954
 
 [module/wlan]

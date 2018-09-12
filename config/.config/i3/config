@@ -188,3 +188,6 @@ bindsym $mod+Shift+less move workspace to output left
 
 # Set alt-tab alike
 bindsym Mod1+Tab workspace back_and_forth
+
+# Set numlock on
+exec_always --no-startup-id numlockx on
