@@ -122,6 +122,8 @@ alias egrep="egrep --color"
 alias clip="xclip -selection clipboard"
 # --Pretty print json
 alias prettyjson="python -m json.tool"
+# --vagrant
+alias vssh="(cd /home/justin/Documents/Ezyvet/app-server; vagrant ssh)"
 
 ##############
 # FZF CONFIG #
