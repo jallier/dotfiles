@@ -106,6 +106,15 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 
+#############
+# Functions #
+#############
+
+# csv viewer - uses csvkit
+format_csv(){
+    PYTHONIOENCODING=utf8 csvlook "$1" --max-column-width 50 | less -S
+}
+
 ###########
 # ALIASES #
 ###########
@@ -124,6 +133,8 @@ alias clip="xclip -selection clipboard"
 alias prettyjson="python -m json.tool"
 # --vagrant
 alias vssh="(cd /home/justin/Documents/Ezyvet/app-server; vagrant ssh)"
+alias vhalt="(cd /home/justin/Documents/Ezyvet/app-server; vagrant halt)"
+alias csv="format_csv"
 
 ##############
 # FZF CONFIG #
