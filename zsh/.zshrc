@@ -115,6 +115,17 @@ format_csv(){
     PYTHONIOENCODING=utf8 csvlook "$1" --max-column-width 50 | less -S
 }
 
+# Ranger cd
+function ranger-cd {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
+
 ###########
 # ALIASES #
 ###########
@@ -221,6 +232,13 @@ done
 }
 bind-git-helper f b t r l
 unset -f bind-git-helper
+
+################
+# Key Bindings #
+################
+
+zle -N ranger-cd{,}
+bindkey -M emacs -s '^O' 'ranger-cd^M'
 
 ###############
 # MISC CONFIG #
