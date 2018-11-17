@@ -8,7 +8,7 @@
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="bullet-train"
-POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -143,8 +143,8 @@ alias clip="xclip -selection clipboard"
 # --Pretty print json
 alias prettyjson="python -m json.tool"
 # --vagrant
-alias vssh="(cd /home/justin/Documents/Ezyvet/app-server; vagrant ssh)"
-alias vhalt="(cd /home/justin/Documents/Ezyvet/app-server; vagrant halt)"
+alias vssh="(cd /home/justin/Documents/app-server; vagrant ssh)"
+alias vhalt="(cd /home/justin/Documents/app-server; vagrant halt)"
 alias csv="format_csv"
 
 ##############
@@ -248,5 +248,6 @@ path+=('/home/justin/Scripts')
 unsetopt share_history # Don't share history between terminals
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 TERM=xterm-256color
+EDITOR=vim
 setopt HIST_IGNORE_ALL_DUPS # Prevent duplicate history entries
 

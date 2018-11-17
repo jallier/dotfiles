@@ -157,7 +157,7 @@ bindsym $mod+r mode "resize"
 
 # Startup stuff
 # xrandr layout for work.
-exec_always --no-startup-id $HOME/.screenlayout/layout.sh 
+exec_always --no-startup-id $HOME/.screenlayout/main.sh 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh 
 exec_always --no-startup-id ~/.config/i3/bindings.sh &
 exec --no-startup-id dunst 
@@ -169,10 +169,10 @@ bindsym $mod+d exec rofi -show run
 bindsym $mod+Shift+d exec "rofi -combi-modi window,drun -show combi -modi combi"
 
 # bind i3lock-fancy
-bindsym $mod+Control+l exec lock
+bindsym $mod+Control+l exec i3lock-fancy
 
 # set the wallpaper
-exec_always feh --bg-fill /home/justin/bg.png
+exec_always feh --bg-fill /home/justin/bg.jpg
 
 # Media keys
 bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"

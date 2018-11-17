@@ -25,9 +25,9 @@ Plugin 'stanangeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 Bundle 'bash-support.vim'
 Plugin 'hdima/python-syntax'
-Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'rhysd/committia.vim'
 "
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -35,6 +35,7 @@ filetype plugin indent on    " required
 
 set autoindent
 au BufReadPost *.ijm set syntax=javascript
+syntax on
 
 " Set tabs to be 4 spaces
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -54,6 +55,9 @@ let g:airline_powerline_fonts = 1
 
 set linebreak
 let g:AutoPairsMapSpace = 0
+
+" Committia config
+let g:committia_open_only_vim_starting = 1
 
 " ################# Mappings
 

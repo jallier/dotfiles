@@ -29,5 +29,7 @@ color13 = #6c71c4
 color14 = #93a1a1
 color15 = #fdf6e3
 
-[options]
-font = droid sans mono awesome
+#[options]
+# font = adobe-source-code-pro
+#font = Source Code Pro for Powerline 11
+
