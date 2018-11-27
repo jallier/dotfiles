@@ -191,3 +191,9 @@ bindsym Mod1+Tab workspace back_and_forth
 
 # Set numlock on
 exec_always --no-startup-id numlockx on
+
+# Disable and enable gaps
+bindsym $mod+o          gaps inner current set 0; gaps outer current set 0
+bindsym $mod+p          gaps inner current set 10; gaps outer current set 5
+bindsym $mod+shift+p    gaps inner current set 10; gaps outer current set 40
+bindsym $mod+shift+o    gaps inner current set 10; gaps outer current set 200

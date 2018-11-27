@@ -36,7 +36,7 @@ border-size = 4
 border-color = #00000000
 
 padding-left = 0
-padding-right = 0
+padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 1
@@ -62,12 +62,15 @@ font-12 FontAwesome:style=Regular:pixelsize=11;3
 
 modules-left = i3
 modules-center = date 
-modules-right = backlight volume spotify wlan eth memory2 load battery powermenu
+modules-right = backlight volume spotify wlan eth memory2 load battery  
 
 tray-position = right
-tray-padding = 2
-tray-transparent = false 
-tray-background = #0063ff
+tray-padding = 1
+tray-transparent = false
+;tray-background = #0063ff
+tray-detatched = true
+tray-offset-y = -54
+tray-offset-x = -96
 
 ;wm-restack = bspwm
 ;wm-restack = i3

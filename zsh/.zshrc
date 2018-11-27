@@ -151,7 +151,7 @@ alias csv="format_csv"
 # FZF CONFIG #
 ##############
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 setopt hist_ignore_dups
 
@@ -251,3 +251,12 @@ TERM=xterm-256color
 EDITOR=vim
 setopt HIST_IGNORE_ALL_DUPS # Prevent duplicate history entries
 
+###################################
+# Set ssh-agent to start on login #
+###################################
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval "$(<~/.ssh-agent-thing)"
+fi
