@@ -136,6 +136,7 @@ alias gsp="git stash pop"
 alias gai="git add -i"
 alias gfd="git log --stat --grep"
 alias gfdp="git log --stat -p --grep"
+alias gsu="git commit -m 'WIP' -n && git add . && git stash push && git reset @~1"
 # --Grep
 alias egrep="egrep --color"
 # --Clipboard
