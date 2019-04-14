@@ -137,6 +137,7 @@ alias gai="git add -i"
 alias gfd="git log --stat --grep"
 alias gfdp="git log --stat -p --grep"
 alias gsu="git commit -m 'WIP' -n && git add . && git stash push && git reset @~1"
+alias gbc="git branch | grep \* | cut -d ' ' -f2"
 # --Grep
 alias egrep="egrep --color"
 # --Clipboard
@@ -251,6 +252,8 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 TERM=xterm-256color
 EDITOR=vim
 setopt HIST_IGNORE_ALL_DUPS # Prevent duplicate history entries
+source /usr/bin/aws_zsh_completer.sh # Add the aws completion to the shell
+
 
 ###################################
 # Set ssh-agent to start on login #

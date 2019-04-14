@@ -29,7 +29,7 @@ Plugin 'hdima/python-syntax'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'rhysd/committia.vim'
-"
+Plugin 'scrooloose/nerdcommenter'
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -75,7 +75,7 @@ nmap <Leader>t :Tags<CR>
 
 " Map fzf search bindings
 nnoremap <C-F> :BLines<CR>
-nnoremap <Leader>f :Rg<CR>
+nnoremap <Leader>f :Rg!<CR>
 
 " Map launching markdown in a browser. 
 nnoremap <F5> :w !pandoc --css ~/dotfiles/bg.css --self-contained -o /tmp/markdownoutput.html && xdg-open /tmp/markdownoutput.html<CR>
