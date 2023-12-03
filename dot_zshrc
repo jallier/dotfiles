@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/Users/justin/.oh-my-zsh
+  export ZSH=/home/justin/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -123,8 +123,8 @@ alias egrep="egrep --color"
 alias clip="xclip -selection clipboard"
 # --Pretty print json
 alias prettyjson="python -m json.tool"
-# ls -> exa
-alias ls='exa'
+# ls -> eza
+alias ls='eza'
 
 ##############
 # FZF CONFIG #
@@ -218,6 +218,8 @@ unset -f bind-git-helper
 
 path+=('/home/justin/Scripts')
 path+=('/Users/justin/Documents/Scripts')
+path+=('/usr/local/go/bin')
+path+=('/home/justin/bin')
 unsetopt share_history # Don't share history between terminals
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 TERM=xterm-256color
@@ -248,3 +250,7 @@ gitstandup() {
   fi
 }
 alias gtsu='gitstandup'
+
+# fnm
+export PATH="/home/justin/.local/share/fnm:$PATH"
+eval "`fnm env`"
