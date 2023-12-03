@@ -1,0 +1,8 @@
+brew "bat"
+brew "chezmoi"
+brew "eza"
+brew "fzf"
+brew "jq"
+brew "mkcert"
+brew "mysql"
+brew "ripgrep"
