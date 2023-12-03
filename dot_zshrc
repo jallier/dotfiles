@@ -170,10 +170,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# load nvm correctly
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
 # Git alias to get all commits from yesterday
 gitstandup() {
   if [ -z "$(git log --all --pretty=format:'* %s' --no-merges --reverse --author=Justin --since=yesterday.midnight)" ]; then
