@@ -114,7 +114,7 @@ export PATH="{{- .chezmoi.homeDir -}}/Library/Application Support/fnm:$PATH"
 {{ else }}
 export PATH="{{- .chezmoi.homeDir -}}/.local/share/fnm:$PATH"
 {{ end }}
-eval "`fnm env`"
+eval "$(fnm env)"
 
 # Source any secrets we need. Note that this file WONT be committed so you'll have to manually add as needed
 # If you need to sync them, look into the bitwarden integration
