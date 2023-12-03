@@ -1,0 +1,15 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env zsh
+
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
+if ((! $+commands[brew] )); then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    {{ if eq .chezmoi.arch "arm64" -}}
+        export HOMEBREW_PREFIX="/opt/homebrew"
+    {{ else }}
+        export HOMEBREW_PREFIX="/usr/local"
+    {{ end -}}
+    export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
+fi
+brew bundle --file={{ joinPath .chezmoi.sourceDir "Brewfile" | quote }}
+{{ end -}}

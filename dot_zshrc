@@ -68,6 +68,8 @@ alias prettyjson="python -m json.tool"
 # ls -> eza
 alias ls='eza'
 
+alias gtsu='gitstandup'
+
 ##############
 # FZF CONFIG #
 ##############
@@ -114,6 +116,10 @@ gitstandup() {
   fi
 }
 alias gtsu='gitstandup'
+
+# load nvm correctly
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # fnm
 export PATH="/home/justin/.local/share/fnm:$PATH"
