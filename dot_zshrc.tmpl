@@ -109,7 +109,11 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # fnm
+{{ if eq .chezmoi.os "darwin" }}
+export PATH="{{- .chezmoi.homeDir -}}/Library/Application Support/fnm:$PATH"
+{{ else }}
 export PATH="{{- .chezmoi.homeDir -}}/.local/share/fnm:$PATH"
+{{ end }}
 eval "`fnm env`"
 
 # Source any secrets we need. Note that this file WONT be committed so you'll have to manually add as needed
