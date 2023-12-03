@@ -1,2 +1,5 @@
-[git]
-    autoCommit = true
+{{- $isWork := promptBoolOnce . "isWork" "Is this a work computer?" -}}
+
+[data]
+    isWork = {{ $isWork }}
+

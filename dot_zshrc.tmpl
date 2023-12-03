@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/Users/Justin/.oh-my-zsh
+  export ZSH={{- .chezmoi.homeDir -}}/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -79,18 +79,18 @@ alias gtsu='gitstandup'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 setopt hist_ignore_dups
 
-source /Users/Justin/.config/zsh/functions/fzf.zsh
+source {{.chezmoi.homeDir}}/.config/zsh/functions/fzf.zsh
 
 ###############
 # MISC CONFIG #
 ###############
 
-source /Users/Justin/.config/zsh/functions/general.zsh
+source {{ .chezmoi.homeDir }}/.config/zsh/functions/general.zsh
 
-path+=('/home/justin/Scripts')
-path+=('/Users/justin/Documents/Scripts')
+path+=('{{- .chezmoi.homeDir -}}/Scripts')
+path+=('{{- .chezmoi.homeDir -}}/Documents/Scripts')
 path+=('/usr/local/go/bin')
-path+=('/home/justin/bin')
+path+=('{{- .chezmoi.homeDir -}}/bin')
 unsetopt share_history # Don't share history between terminals
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 TERM=xterm-256color
@@ -109,5 +109,9 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # fnm
-export PATH="/home/justin/.local/share/fnm:$PATH"
+export PATH="{{- .chezmoi.homeDir -}}/.local/share/fnm:$PATH"
 eval "`fnm env`"
+
+# Source any secrets we need. Note that this file WONT be committed so you'll have to manually add as needed
+# If you need to sync them, look into the bitwarden integration
+source "{{- .chezmoi.homeDir -}}/.secrets.zsh"
