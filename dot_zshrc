@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/justin/.oh-my-zsh
+  export ZSH=/Users/Justin/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -66,7 +66,8 @@ alias clip="xclip -selection clipboard"
 # --Pretty print json
 alias prettyjson="python -m json.tool"
 # ls -> eza
-alias ls='eza'
+alias ls='eza -lhg'
+alias l='eza -laahg'
 
 alias gtsu='gitstandup'
 
@@ -78,13 +79,13 @@ alias gtsu='gitstandup'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 setopt hist_ignore_dups
 
-source /home/justin/.config/zsh/functions/fzf.zsh
+source /Users/Justin/.config/zsh/functions/fzf.zsh
 
 ###############
 # MISC CONFIG #
 ###############
 
-source /home/justin/.config/zsh/functions/general.zsh
+source /Users/Justin/.config/zsh/functions/general.zsh
 
 path+=('/home/justin/Scripts')
 path+=('/Users/justin/Documents/Scripts')
@@ -106,20 +107,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Git alias to get all commits from yesterday
-gitstandup() {
-  if [ -z "$(git log --all --pretty=format:'* %s' --no-merges --reverse --author=Justin --since=yesterday.midnight)" ]; then
-    git log --all --pretty=format:'* %s' --no-merges --reverse --author=Justin --since=last.friday.midnight;
-  else
-    git log --all --pretty=format:'* %s' --no-merges --reverse --author=Justin --since=yesterday.midnight;
-  fi
-}
-alias gtsu='gitstandup'
-
-# load nvm correctly
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # fnm
 export PATH="/home/justin/.local/share/fnm:$PATH"
