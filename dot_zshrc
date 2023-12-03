@@ -11,44 +11,6 @@
 POWERLEVEL9K_MODE='awesome-patched'
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -56,26 +18,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(fzf-tab git git-extras zsh-autosuggestions common-aliases sudo cp )
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -137,12 +79,10 @@ setopt hist_ignore_dups
 # Raxed from https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
 is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
-
 }
 
 fzf-down() {
-fzf --height 100% "$@" --border
-
+  fzf --height 100% "$@" --border
 }
 
 fgf() {
@@ -151,7 +91,6 @@ fgf() {
     fzf-down -m --ansi --nth 2..,.. \
         --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
     cut -c4- | sed 's/.* -> //'
-
 }
 
 fgb() {
@@ -161,7 +100,6 @@ fgb() {
         --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
     sed 's/^..//' | cut -d' ' -f1 |
     sed 's#^remotes/##'
-
 }
 
 fgt() {
@@ -169,7 +107,6 @@ fgt() {
     git tag --sort -version:refname |
     fzf-down --multi --preview-window right:70% \
         --preview 'git show --color=always {} | head -'$LINES
-
 }
 
 fgl() {
@@ -180,7 +117,6 @@ fgl() {
         --header 'Press CTRL-S to toggle sort' \
         --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
     grep -o "[a-f0-9]\{7,\}"
-
 }
 
 fgr() {
@@ -189,25 +125,22 @@ fgr() {
     fzf-down --tac \
         --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
     cut -d$'\t' -f1
-
 }
 
 join-lines() {
-local item
-while read item; do
-    echo -n "${(q)item} "
-done
-
+  local item
+  while read item; do
+      echo -n "${(q)item} "
+  done
 }
 
 bind-git-helper() {
-local c
-for c in $@; do
-    eval "fzf-g$c-widget() { local result=\$(fg$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-    eval "zle -N fzf-g$c-widget"
-    eval "bindkey '^g^$c' fzf-g$c-widget"
-done
-
+  local c
+  for c in $@; do
+      eval "fzf-g$c-widget() { local result=\$(fg$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+      eval "zle -N fzf-g$c-widget"
+      eval "bindkey '^g^$c' fzf-g$c-widget"
+  done
 }
 bind-git-helper f b t r l
 unset -f bind-git-helper
