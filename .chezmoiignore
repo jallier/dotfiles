@@ -1,3 +1,8 @@
 readme.md
 
 {{.chezmoi.homeDir}}/.secrets.zsh
+
+{{ if ne .chezmoi.os "darwin" }}
+Brewfile
+Brewfile.lock.json
+{{ end }}
