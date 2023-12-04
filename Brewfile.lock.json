@@ -432,6 +432,20 @@
           }
         }
       }
+    },
+    "cask": {
+      "bruno": {
+        "version": "1.3.0",
+        "options": {
+          "full_name": "bruno"
+        }
+      },
+      "rectangle": {
+        "version": "0.74",
+        "options": {
+          "full_name": "rectangle"
+        }
+      }
     }
   },
   "system": {
