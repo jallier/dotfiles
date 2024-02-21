@@ -123,4 +123,5 @@ eval "$(fnm env --use-on-cd)"
 # If you need to sync them, look into the bitwarden integration
 source "{{- .chezmoi.homeDir -}}/.secrets.zsh"
 
+eval "$(atuin init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
