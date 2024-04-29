@@ -122,6 +122,7 @@ eval "$(fnm env --use-on-cd)"
 # Source any secrets we need. Note that this file WONT be committed so you'll have to manually add as needed
 # If you need to sync them, look into the bitwarden integration
 source "{{- .chezmoi.homeDir -}}/.secrets.zsh"
+source "{{- .chezmoi.homeDir -}}/.work_scripts.zsh"
 
 eval "$(atuin init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
