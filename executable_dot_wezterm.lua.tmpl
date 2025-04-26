@@ -1,0 +1,123 @@
+local wezterm = require("wezterm")
+
+local config = {
+	-- default_prog = { 'wsl.exe', '--cd', '~' },
+	-- Optional: Customize the appearance and behavior
+	font = wezterm.font("JetBrains Mono"),
+	font_size = 12.0,
+	color_scheme = "Tokyo Night",
+  {{- if eq .chezmoi.hostname "Justin-Desktop-21" }}
+	default_domain = "htpc",
+  {{- end }}
+}
+
+config.ssh_domains = {
+	{
+		-- The name of this specific domain.  Must be unique amongst
+		-- all types of domain in the configuration file.
+		name = "htpc",
+
+		-- identifies the host:port pair of the remote server
+		-- Can be a DNS name or an IP address with an optional
+		-- ":port" on the end.
+		remote_address = "htpc",
+
+		-- Whether agent auth should be disabled.
+		-- Set to true to disable it.
+		-- no_agent_auth = false,
+
+		-- The username to use for authenticating with the remote host
+		username = "justin",
+	},
+	{
+		name = "ben-NAS",
+		remote_address = "ben-NAS",
+		username = "justin",
+	},
+}
+
+-- Slightly transparent and blurred background
+config.window_background_opacity = 0.975
+config.macos_window_background_blur = 30
+-- Removes the title bar, leaving only the tab bar. Keeps
+-- the ability to resize by dragging the window's edges.
+-- On macOS, 'RESIZE|INTEGRATED_BUTTONS' also looks nice if
+-- you want to keep the window controls visible and integrate
+-- them into the tab bar.
+--config.window_decorations = "RESIZE"
+
+wezterm.on("format-tab-title", function(tab)
+	local pane = tab.active_pane
+	local title = pane.title
+	if pane.domain_name then
+		title = title .. " - (" .. pane.domain_name .. ")"
+	end
+	return title
+end)
+
+wezterm.on("update-status", function(window, pane)
+	-- Grab the utf8 character for the "powerline" left facing
+	-- solid arrow.
+	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+
+	-- Grab the current window's configuration, and from it the
+	-- palette (this is the combination of your chosen colour scheme
+	-- including any overrides).
+	local color_scheme = window:effective_config().resolved_palette
+	local bg = color_scheme.background
+	local fg = color_scheme.foreground
+
+	window:set_right_status(wezterm.format({
+		-- First, we draw the arrow...
+		{ Background = { Color = "none" } },
+		{ Foreground = { Color = bg } },
+		{ Text = SOLID_LEFT_ARROW },
+		-- Then we draw our text
+		{ Background = { Color = bg } },
+		{ Foreground = { Color = fg } },
+		--{ Text = " " .. wezterm.hostname() .. " " },
+		{ Text = " " .. pane:get_domain_name() .. " " },
+		{ Background = { Color = "none" } },
+		{ Foreground = { Color = bg } },
+		{ Text = SOLID_LEFT_ARROW },
+		{ Background = { Color = bg } },
+		{ Foreground = { Color = fg } },
+		{ Text = " " .. wezterm.hostname() .. " " },
+	}))
+end)
+
+-- Table mapping keypresses to actions
+config.keys = {
+	-- Sends ESC + b and ESC + f sequence, which is used
+	-- for telling your shell to jump back/forward.
+	{
+		-- When the left arrow is pressed
+		key = "LeftArrow",
+		-- With the "Option" key modifier held down
+		mods = "OPT",
+		-- Perform this action, in this case - sending ESC + B
+		-- to the terminal
+		action = wezterm.action.SendString("\x1bb"),
+	},
+	{
+		key = "RightArrow",
+		mods = "OPT",
+		action = wezterm.action.SendString("\x1bf"),
+	},
+	{
+		key = ",",
+		mods = "SUPER",
+		action = wezterm.action.SpawnCommandInNewTab({
+			cwd = wezterm.home_dir,
+      set_environment_variables = { NVIM_APPNAME = "lazyvim" },
+      args = { "nvim", wezterm.config_file },
+			--args = { "NVIM_APPNAME=lazyvim nvim", wezterm.config_file },
+		}),
+	},
+}
+
+config.set_environment_variables = {
+	PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
+}
+
+return config
