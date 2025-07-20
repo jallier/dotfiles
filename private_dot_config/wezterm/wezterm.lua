@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 local config = {}
 
 config.color_scheme = "Catppuccin Macchiato"
-config.font = wezterm.font("Symbols Nerd Font")
+-- config.font = wezterm.font_with_fallback("JetBrains Mono")
 config.font_size = 13
 
 -- Slightly transparent and blurred background
@@ -45,12 +45,8 @@ config.keys = {
 	-- Sends ESC + b and ESC + f sequence, which is used
 	-- for telling your shell to jump back/forward.
 	{
-		-- When the left arrow is pressed
 		key = "LeftArrow",
-		-- With the "Option" key modifier held down
 		mods = "OPT",
-		-- Perform this action, in this case - sending ESC + B
-		-- to the terminal
 		action = wezterm.action.SendString("\x1bb"),
 	},
 	{
@@ -63,7 +59,10 @@ config.keys = {
 		mods = "SUPER",
 		action = wezterm.action.SpawnCommandInNewTab({
 			cwd = wezterm.home_dir,
-			args = { "NVIM_APPNAME=lazyvim nvim", wezterm.config_file },
+			args = { "nvim", wezterm.config_file },
+			set_environment_variables = {
+				NVIM_APPNAME = "lazyvim",
+			},
 		}),
 	},
 }

@@ -3,11 +3,11 @@ return {
   "neovim/nvim-lspconfig",
   opts = function()
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
-    -- change a keymap
-    --keys[#keys + 1] = { "gr", "<cmd>echo 'hello'<cr>" }
     -- disable a keymap
     keys[#keys + 1] = { "gr", false }
+    -- change a keymap
+    keys[#keys + 1] = { "gt", "lua vim.lsp.buf.references()", desc = "References", nowait = true }
     -- add a keymap
-    --keys[#keys + 1] = { "H", "<cmd>echo 'hello'<cr>" }
+    -- keys[#keys + 1] = { "gt", "<cmd>echo 'hello'<cr>" }
   end,
 }
