@@ -17,6 +17,8 @@ config.macos_window_background_blur = 30
 config.window_decorations = "RESIZE"
 
 config.pane_focus_follows_mouse = true
+config.front_end = "WebGpu"
+config.command_palette_font_size = 18
 
 wezterm.on("update-status", function(window)
 	-- Grab the utf8 character for the "powerline" left facing
