@@ -7,3 +7,32 @@ gf = ["git", "fetch"]
 [git]
 # Prevent pushing work in progress or anything explicitly labeled "private"
 private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
+
+[templates]
+draft_commit_description = '''
+concat(
+  coalesce(description, default_commit_description, "\n"),
+  surround(
+    "\nJJ: This commit contains the following changes:\n", "",
+    indent("JJ:     ", diff.stat(72)),
+  ),
+  "\nJJ: ignore-rest\n",
+  diff.git(),
+)
+'''
+
+[merge-tools.hunk]
+program = "nvim"
+edit-args = ["-c", "DiffEditor $left $right $output"]
+
+[merge-tools.idea]
+program = "/Applications/PhpStorm.app/Contents/MacOS/phpstorm"
+diff-args = ["diff",  "$left", "$right"]
+edit-args = ["diff",  "$left", "$right"]
+merge-args = ["merge" , "$left", "$right", "$base", "$output"]
+
+[ui]
+# diff-editor = "idea"
+# diff-formatter = "idea"
+merge-editor = "idea"
+
