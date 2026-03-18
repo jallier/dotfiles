@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 -- local config = wezterm.config_builder()
 local config = {}
 
@@ -19,6 +20,20 @@ config.window_decorations = "RESIZE"
 config.pane_focus_follows_mouse = true
 config.front_end = "WebGpu"
 config.command_palette_font_size = 18
+
+-- Disable audible beep and visual flash, use notification instead
+config.audible_bell = "Disabled"
+config.visual_bell = {
+	fade_in_duration_ms = 0,
+	fade_out_duration_ms = 0,
+}
+
+config.audible_bell = "SystemBeep"
+
+-- This was a test, but its kinda useful
+wezterm.on("window-config-reloaded", function(window, pane)
+	window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
+end)
 
 wezterm.on("update-status", function(window)
 	-- Grab the utf8 character for the "powerline" left facing
@@ -67,6 +82,34 @@ config.keys = {
 			set_environment_variables = {
 				NVIM_APPNAME = "lazyvim",
 			},
+		}),
+	},
+	-- Ensure that alt enter works in the shell instead of fullscreening the app
+	{
+		key = "Enter",
+		mods = "ALT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+	-- Pass ctrl+shift+r through to terminal applications (e.g. jjui)
+	{
+		key = "r",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SendKey({ key = "r", mods = "CTRL|SHIFT" }),
+	},
+	{
+		key = "E",
+		mods = "CTRL|SHIFT",
+		action = act.PromptInputLine({
+			description = "Enter new name for tab",
+			initial_value = "My Tab Name",
+			action = wezterm.action_callback(function(window, pane, line)
+				-- line will be `nil` if they hit escape without entering anything
+				-- An empty string if they just hit enter
+				-- Or the actual line of text they wrote
+				if line then
+					window:active_tab():set_title(line)
+				end
+			end),
 		}),
 	},
 }
