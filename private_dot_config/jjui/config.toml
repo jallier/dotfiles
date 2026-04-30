@@ -1,0 +1,84 @@
+[[actions]]
+name = "new-note-commit"
+desc = "new note commit"
+lua = '''
+jj_async("new", "-A", context.change_id())
+revisions.refresh()
+'''
+
+[[bindings]]
+action = "new-note-commit"
+key = "N"
+scope = "revisions"
+desc = "new note commit"
+
+[[actions]]
+name = "copy-hash"
+desc = "Copy full commit hash to clipboard"
+lua = '''
+local change_id = context.change_id()
+if not change_id then return end
+
+-- Run jj log to get the full commit_id (hash) for the current change
+local hash, err = jj{"log", "--no-graph", "-r", change_id, "-T", "commit_id"}
+
+if err and #err > 0 then
+    flash("Error fetching hash: " .. err)
+    return
+end
+
+if hash then
+    -- jj might output a string; it's good practice to ensure no trailing whitespace
+    hash = hash:gsub("%s+", "")
+
+    copy_to_clipboard(hash)
+    flash("Copied " .. hash:sub(1, 8) .. "...")
+end
+'''
+
+[[bindings]]
+action = "copy-hash"
+key = "Y"
+scope = "revisions"
+desc = "Copy full commit hash to clipboard"
+
+[[actions]]
+name = "append-ancestors-to-revset"
+desc = "append ancestors of current revision to revset"
+lua = '''
+local change_id = revisions.current()
+if not change_id then return end
+
+local current = revset.current()
+local bumped = false
+local updated = current:gsub("ancestors%(" .. change_id .. "%s*,%s*(%d+)%)", function(n)
+  bumped = true
+  return "ancestors(" .. change_id .. ", " .. (tonumber(n) + 1) .. ")"
+end, 1)
+
+if not bumped then
+  updated = current .. " | ancestors(" .. change_id .. ", 2)"
+end
+
+revset.set(updated)
+'''
+
+[[bindings]]
+action = "append-ancestors-to-revset"
+key = "+"
+scope = "revisions"
+desc = "append ancestors to revset"
+
+[[actions]]
+name = "update-stale"
+desc = "update stale working copy"
+lua = '''
+jj_async("workspace", "update-stale")
+revisions.refresh()
+'''
+
+[[bindings]]
+action = "update-stale"
+key = "R"
+scope = "revisions"
+desc = "update stale working copy"

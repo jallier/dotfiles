@@ -101,7 +101,7 @@ config.keys = {
 		mods = "CTRL|SHIFT",
 		action = act.PromptInputLine({
 			description = "Enter new name for tab",
-			initial_value = "My Tab Name",
+			initial_value = "",
 			action = wezterm.action_callback(function(window, pane, line)
 				-- line will be `nil` if they hit escape without entering anything
 				-- An empty string if they just hit enter
@@ -113,6 +113,18 @@ config.keys = {
 		}),
 	},
 }
+
+-- Loop to create bindings for moving tabs to a specific position (1-8)
+for i = 1, 8 do
+	table.insert(config.keys, {
+		-- Key: "1", "2", etc.
+		key = tostring(i),
+		-- Mods: Command + Option (standard for Mac productivity)
+		mods = "CMD|OPT",
+		-- MoveTab is 0-based, so subtract 1 from our loop index
+		action = wezterm.action.MoveTab(i - 1),
+	})
+end
 
 config.set_environment_variables = {
 	PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
