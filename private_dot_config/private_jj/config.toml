@@ -14,9 +14,23 @@ set -euo pipefail
 jj rebase -s 'closest_merge(@)' -d "parents(closest_merge(@)) ~ ($1)"
 """, ""]
 # `jj restack` to rebase your changes onto `trunk()`
-restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()", "--simplify-parents"]
+restack = [
+  "rebase",
+  "--onto",
+  "trunk()",
+  "--source",
+  "roots(trunk()..) & mutable()",
+  "--simplify-parents",
+]
 # `jj megarestack` to rebase the current megamerge branch onto `trunk()`
-megarestack.definition = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..closest_merge(@))", "--simplify-parents"]
+megarestack.definition = [
+  "rebase",
+  "--onto",
+  "trunk()",
+  "--source",
+  "roots(trunk()..closest_merge(@))",
+  "--simplify-parents",
+]
 megarestack.doc = "Rebase the current megamerge branch onto trunk"
 
 [revset-aliases]
@@ -45,13 +59,20 @@ edit-args = ["-c", "DiffEditor $left $right $output"]
 
 [merge-tools.idea]
 program = "/Applications/PhpStorm.app/Contents/MacOS/phpstorm"
-diff-args = ["diff",  "$left", "$right"]
-edit-args = ["diff",  "$left", "$right"]
-merge-args = ["merge" , "$left", "$right", "$base", "$output"]
+diff-args = ["diff", "$left", "$right"]
+edit-args = ["diff", "$left", "$right"]
+merge-args = ["merge", "$left", "$right", "$base", "$output"]
+
+[merge-tools.diffview]
+program = "nvim"
+merge-args = ["-c", "DiffviewMergeFiles $output $base $left $right"]
+merge-tool-edits-conflict-markers = true
+conflict-marker-style = "git"
+
 
 [ui]
 # diff-editor = "idea"
 # diff-formatter = "idea"
-merge-editor = "idea"
+merge-editor = "diffview"
 
 
