@@ -124,3 +124,18 @@ action = "update-stale"
 key = "R"
 scope = "revisions"
 desc = "update stale working copy"
+
+[[actions]]
+name = "megarestack"
+desc = "restack all mutable commits under the current megamerge"
+lua = '''
+jj_async("megarestack")
+revisions.refresh()
+'''
+
+[[bindings]]
+action = "megarestack"
+key = "m"
+scope = "revisions"
+desc = "restack all mutable commits under the current megamerge"
+

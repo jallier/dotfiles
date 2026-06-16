@@ -1,5 +1,93 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+
+local function save_workspace_state()
+	local state = resurrect.workspace_state.get_workspace_state()
+	resurrect.state_manager.save_state(state)
+	resurrect.state_manager.write_current_state(state.workspace, "workspace")
+end
+
+local function save_window_state(_, pane)
+	resurrect.state_manager.save_state(resurrect.window_state.get_window_state(pane:window()))
+end
+
+local function save_tab_state(_, pane)
+	resurrect.state_manager.save_state(resurrect.tab_state.get_tab_state(pane:tab()))
+end
+
+local function save_workspace_and_window(window, pane)
+	save_workspace_state()
+	save_window_state(window, pane)
+end
+
+local function load_saved_state(window, pane)
+	resurrect.fuzzy_loader.fuzzy_load(window, pane, function(id)
+		local state_type = string.match(id, "^([^/]+)")
+		id = string.match(id, "([^/]+)$")
+		id = string.match(id, "(.+)%..+$")
+		local opts = {
+			relative = true,
+			restore_text = true,
+			on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+		}
+
+		if state_type == "workspace" then
+			resurrect.workspace_state.restore_workspace(resurrect.state_manager.load_state(id, state_type), opts)
+		elseif state_type == "window" then
+			resurrect.window_state.restore_window(
+				pane:window(),
+				resurrect.state_manager.load_state(id, state_type),
+				opts
+			)
+		elseif state_type == "tab" then
+			resurrect.tab_state.restore_tab(
+				pane:tab(),
+				resurrect.state_manager.load_state(id, state_type),
+				opts
+			)
+		end
+	end)
+end
+
+wezterm.on("resurrect.state_manager.periodic_save.finished", function()
+	local workspace = wezterm.mux.get_active_workspace()
+	if workspace then
+		resurrect.state_manager.write_current_state(workspace, "workspace")
+	end
+end)
+
+wezterm.on("augment-command-palette", function()
+	return {
+		{
+			brief = "Resurrect: Save Workspace",
+			action = wezterm.action_callback(save_workspace_state),
+		},
+		{
+			brief = "Resurrect: Save Window",
+			action = wezterm.action_callback(save_window_state),
+		},
+		{
+			brief = "Resurrect: Save Tab",
+			action = wezterm.action_callback(save_tab_state),
+		},
+		{
+			brief = "Resurrect: Save Workspace and Window",
+			action = wezterm.action_callback(save_workspace_and_window),
+		},
+		{
+			brief = "Resurrect: Load Saved State",
+			action = wezterm.action_callback(load_saved_state),
+		},
+	}
+end)
+
+wezterm.on("gui-startup", resurrect.state_manager.resurrect_on_gui_startup)
+resurrect.state_manager.periodic_save({
+	interval_seconds = 15 * 60,
+	save_workspaces = true,
+})
+
 -- local config = wezterm.config_builder()
 local config = {}
 
@@ -17,7 +105,8 @@ config.macos_window_background_blur = 30
 -- them into the tab bar.
 config.window_decorations = "RESIZE"
 
-config.pane_focus_follows_mouse = true
+-- config.pane_focus_follows_mouse = true
+config.pane_focus_follows_mouse = false -- having to set this because of an issue with deskflow
 config.front_end = "WebGpu"
 config.command_palette_font_size = 18
 
@@ -111,6 +200,31 @@ config.keys = {
 				end
 			end),
 		}),
+	},
+	{
+		key = "w",
+		mods = "ALT",
+		action = wezterm.action_callback(save_workspace_state),
+	},
+	{
+		key = "W",
+		mods = "ALT",
+		action = wezterm.action_callback(save_window_state),
+	},
+	{
+		key = "T",
+		mods = "ALT",
+		action = wezterm.action_callback(save_tab_state),
+	},
+	{
+		key = "s",
+		mods = "ALT",
+		action = wezterm.action_callback(save_workspace_and_window),
+	},
+	{
+		key = "r",
+		mods = "ALT",
+		action = wezterm.action_callback(load_saved_state),
 	},
 }
 
