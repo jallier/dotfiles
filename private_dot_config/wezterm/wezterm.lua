@@ -1,6 +1,49 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+local workspace_picker = wezterm.plugin.require("https://github.com/isseii10/workspace-picker.wezterm")
+
+tabline.setup({
+	options = {
+		icons_enabled = true,
+		theme = "Catppuccin Mocha",
+		tabs_enabled = true,
+		theme_overrides = {},
+		section_separators = {
+			left = wezterm.nerdfonts.pl_left_hard_divider,
+			right = wezterm.nerdfonts.pl_right_hard_divider,
+		},
+		component_separators = {
+			left = wezterm.nerdfonts.pl_left_soft_divider,
+			right = wezterm.nerdfonts.pl_right_soft_divider,
+		},
+		tab_separators = {
+			left = wezterm.nerdfonts.pl_left_hard_divider,
+			right = wezterm.nerdfonts.pl_right_hard_divider,
+		},
+	},
+	sections = {
+		-- tabline_a = { "mode" },
+		tabline_a = { "" },
+		tabline_b = { "workspace" },
+		tabline_c = { "" },
+		tab_active = {
+			"index",
+			"process",
+		},
+		tab_inactive = {
+			"index",
+			{ "cwd", padding = { left = 0, right = 1 } },
+		},
+		tabline_x = { "" },
+		tabline_y = { "" },
+		-- tabline_x = { "ram", "cpu" },
+		-- tabline_y = { "datetime", "battery" },
+		tabline_z = { "domain", "hostname" },
+	},
+	extensions = {},
+})
 
 local function save_workspace_state()
 	local state = resurrect.workspace_state.get_workspace_state()
@@ -41,11 +84,7 @@ local function load_saved_state(window, pane)
 				opts
 			)
 		elseif state_type == "tab" then
-			resurrect.tab_state.restore_tab(
-				pane:tab(),
-				resurrect.state_manager.load_state(id, state_type),
-				opts
-			)
+			resurrect.tab_state.restore_tab(pane:tab(), resurrect.state_manager.load_state(id, state_type), opts)
 		end
 	end)
 end
@@ -124,30 +163,7 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
 end)
 
-wezterm.on("update-status", function(window)
-	-- Grab the utf8 character for the "powerline" left facing
-	-- solid arrow.
-	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-
-	-- Grab the current window's configuration, and from it the
-	-- palette (this is the combination of your chosen colour scheme
-	-- including any overrides).
-	local color_scheme = window:effective_config().resolved_palette
-	local bg = color_scheme.background
-	local fg = color_scheme.foreground
-
-	window:set_right_status(wezterm.format({
-		-- First, we draw the arrow...
-		{ Background = { Color = "none" } },
-		{ Foreground = { Color = bg } },
-		{ Text = SOLID_LEFT_ARROW },
-		-- Then we draw our text
-		{ Background = { Color = bg } },
-		{ Foreground = { Color = fg } },
-		{ Text = " " .. wezterm.hostname() .. " " },
-	}))
-end)
-
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 -- Table mapping keypresses to actions
 config.keys = {
 	-- Sends ESC + b and ESC + f sequence, which is used
@@ -243,5 +259,8 @@ end
 config.set_environment_variables = {
 	PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
 }
+
+tabline.apply_to_config(config)
+workspace_picker.apply_to_config(config)
 
 return config
