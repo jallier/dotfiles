@@ -7,6 +7,12 @@ gf = ["git", "fetch"]
 stack = ["rebase", "--after", "trunk()", "--before", "closest_merge(@)", "--revision"]
 # `jj stage` to include the whole stack after the megamerge
 stage = ["stack", "closest_merge(@)+:: ~ empty()"]
+# `jj unstack <revset>` to drop revs as megamerge parents
+unstack = ["util", "exec", "--", "bash", "-c", """
+set -euo pipefail
+[[ $# -ge 1 ]] || { echo "error: jj unstack <revset>" >&2; exit 1; }
+jj rebase -s 'closest_merge(@)' -d "parents(closest_merge(@)) ~ ($1)"
+""", ""]
 # `jj restack` to rebase your changes onto `trunk()`
 restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()", "--simplify-parents"]
 # `jj megarestack` to rebase the current megamerge branch onto `trunk()`
