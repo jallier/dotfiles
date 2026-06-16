@@ -102,8 +102,6 @@ TERM=xterm-256color
 export NVIM_APPNAME="lazyvim"
 export EDITOR="nvim"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
-
 # make the android tools work ok
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -114,18 +112,15 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# fnm
-{{ if eq .chezmoi.os "darwin" }}
-export PATH="{{- .chezmoi.homeDir -}}/Library/Application Support/fnm:$PATH"
-{{ else }}
-export PATH="{{- .chezmoi.homeDir -}}/.local/share/fnm:$PATH"
-{{ end }}
-eval "$(fnm env --use-on-cd)"
-
 # Source any secrets we need. Note that this file WONT be committed so you'll have to manually add as needed
 # If you need to sync them, look into the bitwarden integration
 source "{{- .chezmoi.homeDir -}}/.secrets.zsh"
 source "{{- .chezmoi.homeDir -}}/.work_scripts.zsh"
 
+#########
+# EVALS #
+#########
+
 eval "$(atuin init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(mise activate zsh)"

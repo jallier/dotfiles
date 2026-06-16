@@ -70,6 +70,48 @@ scope = "revisions"
 desc = "append ancestors to revset"
 
 [[actions]]
+name = "collapse-ancestors-from-revset"
+desc = "collapse megamerge branch ancestors from revset"
+lua = '''
+local change_id = revisions.current()
+if not change_id then return end
+
+-- In the megamerge workflow, the branch commit we want to keep visible is the
+-- merge parent at the tip of the selected branch. If the selected revision is
+-- already that parent, this resolves back to itself; if it is an earlier commit
+-- on the branch, this resolves to the last commit before the merge.
+local tip_revset = "heads(" .. change_id .. ":: & parents(merges()))"
+local tip, err = jj{"log", "--no-graph", "-r", tip_revset, "-T", "change_id.short()"}
+
+if err and #err > 0 then
+  flash("Error finding branch tip: " .. err)
+  return
+end
+
+if not tip or tip:gsub("%s+", "") == "" then
+  tip = change_id
+else
+  tip = tip:gsub("%s+", "")
+end
+
+local current = revset.current()
+
+-- Keep the tip visible, but hide the mutable ancestors behind it. In practice,
+-- the mutable/immutable boundary is the branch divergence point from trunk.
+local hidden_branch = "((::" .. tip .. " & mutable()) ~ " .. tip .. ")"
+local updated = "(" .. current .. " | " .. tip .. ") ~ " .. hidden_branch
+
+revset.set(updated)
+flash("Collapsed branch behind " .. tip)
+'''
+
+[[bindings]]
+action = "collapse-ancestors-from-revset"
+key = "-"
+scope = "revisions"
+desc = "collapse ancestors from revset"
+
+[[actions]]
 name = "update-stale"
 desc = "update stale working copy"
 lua = '''
