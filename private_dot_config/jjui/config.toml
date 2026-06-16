@@ -139,3 +139,13 @@ key = "m"
 scope = "revisions"
 desc = "restack all mutable commits under the current megamerge"
 
+
+[[actions]]
+name = "edit-file"
+desc = "edit highlighted working-copy file in LazyVim"
+key = "shift+e"
+scope = "revisions.details"
+lua = '''
+if not context.file() then return end
+exec_shell('test -f "$file" && nvim "$file"')
+'''
