@@ -1,0 +1,159 @@
+# AeroSpaceBar Configuration File
+# This file stores all your settings in TOML format.
+# Changes are automatically saved when modified through the UI.
+# You can edit this file directly - changes will be reflected immediately.
+
+[advanced]
+enable-optimized-performance = true
+enable-performance-metrics = false
+focus-window-on-click = true
+# Supported values: "debug", "info", "warning", "error", "fault"
+log-level = 'info'
+
+[general]
+aerospace-path = '/opt/homebrew/bin/aerospace'
+quick-hide-enabled = true
+quick-hide-trigger-key = 'command'
+show-window-titles = true
+theme-mode = 'preset'
+theme-preset = 'tokyo-night'
+
+[general.theme-preset-effect]
+background-blur-radius = 0.80000000000000004
+background-opacity = 0.49750623441396508
+border-opacity = 0.80000000000000004
+
+[general.theme-preset-geometric]
+border-width = 0.0
+corner-radius = 5.3241895261845391
+
+[groups]
+# Groups appearance mode: appearance-mode = <value>
+# Supported values: "per-group", "all-groups", "match-spaces"
+appearance-mode = 'match-spaces'
+show-foreground-overlay = true
+show-groups = true
+
+[groups.global-effect-config]
+background-blur-radius = 0.0
+background-opacity = 0.20000000000000001
+border-opacity = 0.80000000000000004
+
+[groups.global-geometric-config]
+border-width = 0.0
+corner-radius = 14.0
+
+[groups.global-visual-config.background-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[groups.global-visual-config.border-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[groups.global-visual-config.foreground-color]
+alpha = 0.84705883264541626
+blue = 0.0
+green = 0.0
+red = 0.0
+
+[[groups.groups]]
+end-index = -1
+id = 0
+start-index = 1
+
+[groups.groups.effect-config]
+background-blur-radius = 0.0
+background-opacity = 0.20000000000000001
+border-opacity = 0.80000000000000004
+
+[groups.groups.geometric-config]
+border-width = 0.0
+corner-radius = 14.0
+
+[groups.groups.visual-config.background-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[groups.groups.visual-config.border-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[groups.groups.visual-config.foreground-color]
+alpha = 0.84705883264541626
+blue = 0.0
+green = 0.0
+red = 0.0
+
+[spaces]
+# Spaces appearance mode: appearance-mode = <value>
+# Supported values: "per-space", "all-spaces"
+appearance-mode = 'all-spaces'
+effect-config = []
+geometric-config = []
+hidden-spaces = []
+show-apple-button-as-space = false
+show-empty-spaces = false
+visual-config = []
+
+[spaces.apple-button-effect-config]
+background-blur-radius = 0.0
+background-opacity = 0.20000000000000001
+border-opacity = 0.80000000000000004
+
+[spaces.apple-button-geometric-config]
+border-width = 0.0
+corner-radius = 14.0
+
+[spaces.apple-button-visual-config.background-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[spaces.apple-button-visual-config.border-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[spaces.apple-button-visual-config.foreground-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[spaces.global-effect-config]
+background-blur-radius = 0.0
+background-opacity = 0.20000000000000001
+border-opacity = 0.80000000000000004
+
+[spaces.global-geometric-config]
+border-width = 0.0
+corner-radius = 14.0
+
+[spaces.global-visual-config.background-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[spaces.global-visual-config.border-tint-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
+
+[spaces.global-visual-config.foreground-color]
+alpha = 1.0
+blue = 1.0
+green = 1.0
+red = 1.0
