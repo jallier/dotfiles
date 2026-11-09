@@ -40,36 +40,50 @@ brew "jq"
 brew "mise"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
-# Simplified and community-driven man pages
-brew "tldr"
+# Official tldr client written in Rust
+brew "tlrc"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# The AI coding agent built for the terminal.
-brew "anomalyco/tap/opencode"
 # Harden package manager configs against supply chain attacks, built by Arnica
 brew "arnica/depsguard/depsguard"
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace", trusted: true
 # Modern menu bar application for managing AeroSpace window manager
 cask "rdrkr/tap/aerospacebar", trusted: true
+# Desktop password and login vault
+cask "bitwarden"
 # Mouse and keyboard sharing utility
-cask "deskflow/tap/deskflow"
-# Menu bar manager
-cask "jordanbaird-ice"
+cask "deskflow/tap/deskflow", trusted: true
+# Offline voice-to-text dictation app with AI enhancement
+cask "fluidvoice"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Keyboard customiser
+cask "karabiner-elements"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
 # Replacement for Docker Desktop
 cask "orbstack"
+# Control your tools with a few keystrokes
+cask "raycast"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
+# Screenshot measurement and annotation tool
+cask "shottr"
 # Music streaming service
 cask "spotify"
-# macOS notifications for Spotify
-cask "nahive/spotify-notify/spotify-notify"
+# Now-playing notifications for Spotify and Apple Music
+cask "nahive/spotify-notify/spotify-notify", trusted: true
+# Menu bar manager
+cask "thaw"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm@nightly"
 # REST, GraphQL and gRPC client
